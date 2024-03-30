@@ -1,10 +1,9 @@
 const APP_ID = '3dc1e3a398e44027902658e361382995'
 const CHANNEL = sessionStorage.getItem('roomname')
-console.log(CHANNEL)
 const TOKEN = sessionStorage.getItem('token')
-console.log(TOKEN)
 let UID = sessionStorage.getItem('uid')
-console.log(UID)
+let NAME = sessionStorage.getItem('name')
+
 
 let localtrack = []
 
@@ -20,7 +19,7 @@ async function joinChannelToClient(){
     document.getElementById('room-name').innerText = CHANNEL
     client.on('user-published', handleUserJoined)
     client.on('user-left', handleUserLeft)
-    await client.join(APP_ID, CHANNEL, TOKEN, UID);
+    UID = await client.join(APP_ID, CHANNEL, TOKEN, UID);
     
     localtrack = await AgoraRTC.createMicrophoneAndCameraTracks();
 
@@ -36,11 +35,18 @@ async function joinChannelToClient(){
     await client.publish([localtrack[0], localtrack[1]]);
 }
 
-let handleUserJoined = async function(user, mediatype){
-    await client.subscribe(user, mediatype);
+let handleUserJoined = async function(user, mediatype)
+{   remoteuser[user.uid] = user;    
+    try{
+        await client.subscribe(user, mediatype);
+        console.log('User has been published')
+    }catch(error){
+        console.log('oop there is an error',error);
+    }
 
     if(mediatype === 'video'){
-        remoteuser[user.uid] = user
+        console.log('remoteuser', remoteuser)
+        console.log(user)
         let remote_userplay = document.getElementById('user-${user.uid}');
         if(remote_userplay != null){
             remote_userplay.remove;
@@ -70,10 +76,7 @@ let removechannel = async function (){
         localtrack[i].stop()
         localtrack[i].close()
     }
-
     await client.leave();
-    
-
     window.open('/', '_self');
 }
 
@@ -103,8 +106,10 @@ let toggleaudio = async function(event) {
 
 joinChannelToClient();
 
-document.getElementById('leave-btn').addEventListener('click', removechannel)
+document.getElementById('leave-btn').addEventListener('click', removechannel);
 
-document.getElementById('camera-btn').addEventListener('click', toggleCamera)
+document.getElementById('camera-btn').addEventListener('click', toggleCamera);
 
-document.getElementById('mic-btn').addEventListener('click', toggleaudio)
+document.getElementById('mic-btn').addEventListener('click', toggleaudio);
+
+console.log('remoteuser',remoteuser);

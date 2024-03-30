@@ -8,15 +8,16 @@
         <img id = "logo" src="{% static 'images/chat.jpg'%}"
     </section>
 
-    <div>
+    <div id="welcome-message">
         <h1>Welcome to My Chat</h1>
         <p>A group Video calling application just for you</p>
     </div>
 
     <form id="form">
         <div class="form-field">
-            <input type="submit" value="Join Stream">
+            <input type="text" id="Name" placeholder="Enter name" name="Name"> 
             <input type="text" id="room" placeholder="Enter a room name" name="roomName"> 
+            <input type="submit" value="Join Stream">
         </div>
     </form>
 
@@ -29,10 +30,9 @@ let handleSubmit = async function(event){
     event.preventDefault();
    
     let roomName = event.target.roomName.value.toUpperCase(); // Define roomName here
-
+    let name = event.target.Name.value
     let data = await fetch(`/get_token?channelName=${roomName}`);
     let jsonresponse = await data.json();
-    console.log(jsonresponse);
 
     let UID = jsonresponse.uid;
     let TOKEN = jsonresponse.token;
@@ -40,6 +40,8 @@ let handleSubmit = async function(event){
     sessionStorage.setItem('roomname', roomName);
     sessionStorage.setItem('uid', UID);
     sessionStorage.setItem('token', TOKEN);
+    sessionStorage.setItem('name', name);
+
 
     window.open('room/', '_self');
 }

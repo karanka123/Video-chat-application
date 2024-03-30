@@ -1,10 +1,18 @@
+
+@import url('https://fonts.googleapis.com/css2?family=Rock+3D&display=swap')
+
+
 :root{
     --shadow:0 4px 6px -1px rgba(0,0,0,0.1),0 2px 4px -1px rgba(0,0,0,0.06);
+    
 }
 
 
 body {
     background-color: rgba(232, 233, 239, 1);
+    font-family: "Rock 3D", system-ui;
+    font-weight: 400;
+    font-style: normal;
 }
 
 #logo{
@@ -25,6 +33,26 @@ body {
     transform: translate(-50%, -50%);
 }
 
+#room-name-wrapper{
+    text-align: center;
+    font-size: 18px;
+}
+
+.video-player > *{
+    border-radius: 5px;
+}
+
+.username-wrapper{
+    position: absolute;
+    top: 10px;
+    left: 10px;
+    z-index: 9999;
+    background-color: rgba(0,0,0,.03);
+    padding: 10px;
+    border-radius: 5px;
+    font-size: 14px;
+    color: #fff;
+}
 
 
 #video-streams{
@@ -44,6 +72,7 @@ body {
     border-radius: 5px;
     margin: 2px;
     background-color: rgba(198, 202, 219, 1);
+    position: relative;
 
 }
 
@@ -78,4 +107,61 @@ body {
 
 #leave-btn {
     background-color: rgb(255, 80, 80, 1);
+}
+
+#welcome-message{
+    text-align: center;
+    margin: 20px;
+
+}
+
+#welcome-message h1{
+    font-size: 36px;
+}
+
+#welcome-message p{
+    font-size: 16px;
+}
+
+.form-field{
+    margin: 20px;
+
+}
+
+.form-field label{
+    font-size: 16px;
+    line-height: 1.7em;
+}
+
+.form-field input{
+    width: 100%;
+    border: 2px solid rgba(198, 202, 219, 1);
+    border-radius: 10px;
+    padding: 10px;
+    margin: 10px;
+    box-sizing: border-box;
+}
+
+.form-field input[type='submit']{
+    background-color: rgba(75, 93, 172, 1);
+    border: none;
+    color: white;
+    cursor: pointer;
+}
+
+@media screen and (max-width:450px){
+    #form-container{
+        width: 95%;
+    }
+    #welcome-message{
+        font-size: 24px;
+    }
+}
+
+@media screen and (max-width:1650px) {
+    .video-container{
+        flex-basis: 300px;
+        min-height:200px;
+
+    }
 }
