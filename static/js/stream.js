@@ -19,7 +19,7 @@ async function joinChannelToClient(){
     document.getElementById('room-name').innerText = CHANNEL
     client.on('user-published', handleUserJoined)
     client.on('user-left', handleUserLeft)
-    UID = await client.join(APP_ID, CHANNEL, TOKEN, UID);
+    await client.join(APP_ID, CHANNEL, TOKEN, UID);
     
     localtrack = await AgoraRTC.createMicrophoneAndCameraTracks();
 

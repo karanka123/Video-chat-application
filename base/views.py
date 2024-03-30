@@ -16,7 +16,7 @@ def getToken(request):
     appCertificate = '6d40a091cab44acfb5c76ffbd09ebe2c'
     channelName = request.GET.get('channelName')
     userId = request.user.id  # Assuming you have a unique user ID associated with each user
-    uid = hashlib.sha1(f"{channelName}-{userId}".encode()).hexdigest()[:10]
+    uid = random.randint(1, 230)
     role = 1
     expiretime = 3600 * 24
     currenttime = time.time()
